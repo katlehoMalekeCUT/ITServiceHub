@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ServiceHub IT Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="login-page">
+    <main class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8">
+                <div class="text-center mb-4">
+                    <div class="login-brand-mark mb-3">
+                        <img src="/images/login-logo.svg" alt="ServiceHub IT logo" class="brand-logo" />
+                    </div>
+                    <h1 class="h3 fw-semibold mb-2">ServiceHub IT</h1>
+                    <p class="text-muted">Unified IT Service Management</p>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+@model ServiceHub_IT.Models.ReportFilterViewModel
+@{
+    ViewData["Title"] = "Report Preview";
+    var rows = ViewBag.Rows as List<Dictionary<string, object?>> ?? new List<Dictionary<string, object?>>();
+    var reportType = ViewBag.ReportType as string ?? "Report";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h4 mb-1">@reportType Report</h1>
+        <p class="text-muted mb-0">Generated for @ViewBag.StartDate?.ToString("yyyy-MM-dd") to @ViewBag.EndDate?.ToString("yyyy-MM-dd")</p>
+    </div>
+    <div class="btn-group">
+        <a asp-action="Export" asp-route-type="excel" asp-route-reportType="@reportType" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate" class="btn btn-outline-success">Export Excel</a>
+        <a asp-action="Export" asp-route-type="csv" asp-route-reportType="@reportType" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate" class="btn btn-outline-primary">Export CSV</a>
+        <a asp-action="Print" asp-route-reportType="@reportType" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate" class="btn btn-outline-secondary">Print PDF</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    @if (rows.Any())
+                    {
+                        foreach (var key in rows.First().Keys)
+                        {
+                            <th>@key</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in rows)
+                {
+                    <tr>
+                        @foreach (var key in row.Keys)
+                        {
+                            <td>@row[key]</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

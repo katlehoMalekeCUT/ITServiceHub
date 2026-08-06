@@ -1,0 +1,73 @@
+@model IEnumerable<ServiceHub_IT.Models.MaintenanceRecordViewModel>
+@{
+    ViewData["Title"] = "Maintenance";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid px-0">
+    <div class="page-section d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="h4 fw-semibold mb-1">Maintenance Records</h2>
+            <p class="text-muted mb-0">Review scheduled and completed maintenance for your assets.</p>
+        </div>
+        <a asp-controller="Maintenance" asp-action="Create" class="btn btn-primary">New Maintenance</a>
+    </div>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="alert alert-success">@successMessage</div>
+    }
+    @if (TempData["ErrorMessage"] is string errorMessage)
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Asset</th>
+                        <th>Technician</th>
+                        <th>Problem</th>
+                        <th>Status</th>
+                        <th>Maintenance Date</th>
+                        <th>Cost</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">No maintenance records found.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.AssetName</td>
+                                <td>@item.TechnicianName</td>
+                                <td>@item.Problem</td>
+                                <td>
+                                    <span class="badge @(item.Status == "Closed" ? "bg-success" : item.Status == "Due" ? "bg-danger" : "bg-secondary")">
+                                        @item.Status
+                                    </span>
+                                </td>
+                                <td>@item.MaintenanceDate?.ToString("yyyy-MM-dd")</td>
+                                <td>@item.MaintenanceCost?.ToString("C")</td>
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary me-1">View</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary me-1">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

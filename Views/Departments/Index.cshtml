@@ -1,0 +1,6 @@
+@model IEnumerable<ServiceHub_IT.Models.Department>
+@{
+    ViewData["Title"] = "Departments";
+}
+
+@await Html.PartialAsync("~/Views/Admin/Departments/Index.cshtml", Model)

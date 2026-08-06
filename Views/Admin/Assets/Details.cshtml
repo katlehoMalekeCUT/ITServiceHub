@@ -1,0 +1,74 @@
+@model ServiceHub_IT.Models.Asset
+@{
+    ViewData["Title"] = "Asset Details";
+    var documents = ViewBag.Documents as IEnumerable<ServiceHub_IT.Models.AssetDocument> ?? Array.Empty<ServiceHub_IT.Models.AssetDocument>();
+}
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">@Model.asset_name</h1>
+                <dl class="row">
+                    <dt class="col-sm-4">Asset Tag</dt>
+                    <dd class="col-sm-8">@Model.asset_tag</dd>
+                    <dt class="col-sm-4">Serial Number</dt>
+                    <dd class="col-sm-8">@Model.serial_number</dd>
+                    <dt class="col-sm-4">Department</dt>
+                    <dd class="col-sm-8">@Model.department</dd>
+                    <dt class="col-sm-4">Status</dt>
+                    <dd class="col-sm-8">@Model.status</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Upload PDF Document</h5>
+                <form asp-action="UploadDocument" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="AssetId" value="@Model.id" />
+                    <div class="mb-3">
+                        <label class="form-label">Document Type</label>
+                        <select name="DocumentType" class="form-select">
+                            <option>Warranty</option>
+                            <option>Invoice</option>
+                            <option>Manual</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">PDF File</label>
+                        <input name="DocumentFile" class="form-control" type="file" accept=".pdf" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Processed Documents</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>File</th>
+                    <th>Extracted Text</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var document in documents)
+                {
+                    <tr>
+                        <td>@document.document_type</td>
+                        <td><a href="@document.storage_url" target="_blank">@document.original_name</a></td>
+                        <td style="white-space: pre-wrap;">@document.extracted_text</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

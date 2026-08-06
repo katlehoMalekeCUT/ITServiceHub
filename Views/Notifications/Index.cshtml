@@ -1,0 +1,47 @@
+@model IEnumerable<ServiceHub_IT.Models.NotificationItem>
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="container-fluid px-0">
+    <div class="page-section d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="h4 fw-semibold mb-1">Notifications</h2>
+            <p class="text-muted mb-0">Your latest updates and alerts from ServiceHub IT.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="list-group list-group-flush">
+            @if (!Model.Any())
+            {
+                <div class="list-group-item text-center text-muted py-5">No notifications yet.</div>
+            }
+            else
+            {
+                foreach (var notification in Model)
+                {
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+                            <div>
+                                <h5 class="mb-1">@notification.Title</h5>
+                                <p class="mb-1 text-muted">@notification.Message</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge @(notification.IsRead ? "bg-secondary" : "bg-success")">@(notification.IsRead ? "Read" : "Unread")</span>
+                                <p class="text-muted mb-0">@notification.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</p>
+                            </div>
+                        </div>
+                        @if (!notification.IsRead)
+                        {
+                            <form asp-action="MarkAsRead" method="post" class="mt-3">
+                                <input type="hidden" name="id" value="@notification.Id" />
+                                <button type="submit" class="btn btn-sm btn-primary">Mark as read</button>
+                            </form>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+@model ServiceHub_IT.DTOs.EmployeeDashboardViewModel
+@{
+    ViewData["Title"] = "Employee Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="hero-panel">
+        <div>
+            <span class="hero-badge"><i class="bi bi-person-badge"></i>Employee</span>
+            <h1 class="h4 mb-2 mt-3">Employee Dashboard</h1>
+            <p class="text-muted mb-0">Track your tickets, technician assignments, and assigned assets.</p>
+        </div>
+        <div class="topbar-pill"><i class="bi bi-clipboard-check me-2"></i>My workspace</div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6"><div class="card p-3 stat-card"><h6 class="text-muted">Resolved Tickets</h6><h2 class="mb-0">@Model.ResolvedCount</h2></div></div>
+        <div class="col-md-6"><div class="card p-3 stat-card"><h6 class="text-muted">Pending Tickets</h6><h2 class="mb-0">@Model.PendingCount</h2></div></div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">My Tickets</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead><tr><th>Title</th><th>Status</th><th>Assigned Technician</th></tr></thead>
+                        <tbody>
+                            @foreach (var ticket in Model.Tickets)
+                            {
+                                <tr>
+                                    <td>@ticket.title</td>
+                                    <td><span class="badge bg-secondary">@ticket.status</span></td>
+                                    <td>@(string.IsNullOrWhiteSpace(ticket.assigned_technician) ? "Waiting" : ticket.assigned_technician)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">Assigned Assets</h5>
+                <ul class="list-group list-group-flush">
+                    @foreach (var asset in Model.Assets)
+                    {
+                        <li class="list-group-item">@asset.asset_name (@asset.status)</li>
+                    }
+                </ul>
+                @if (!Model.Assets.Any())
+                {
+                    <p class="empty-state mb-0">No assets assigned yet.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

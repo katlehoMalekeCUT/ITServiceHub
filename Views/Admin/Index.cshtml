@@ -1,0 +1,74 @@
+@model ServiceHub_IT.DTOs.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid">
+    <div class="hero-panel">
+        <div>
+            <span class="hero-badge"><i class="bi bi-shield-lock"></i>Administrator</span>
+            <h1 class="h4 mb-2 mt-3">Admin Dashboard</h1>
+            <p class="text-muted mb-0">Full control over tickets, assets, staff and service delivery.</p>
+        </div>
+        <div class="topbar-pill"><i class="bi bi-speedometer2 me-2"></i>Mission Control</div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-3"><div class="card p-3 stat-card"><h6 class="text-muted">Employees</h6><h2 class="mb-0">@Model.Employees</h2></div></div>
+        <div class="col-md-3"><div class="card p-3 stat-card"><h6 class="text-muted">Technicians</h6><h2 class="mb-0">@Model.Technicians</h2></div></div>
+        <div class="col-md-3"><div class="card p-3 stat-card"><h6 class="text-muted">Resolved Tickets</h6><h2 class="mb-0">@Model.ResolvedTickets</h2></div></div>
+        <div class="col-md-3"><div class="card p-3 stat-card"><h6 class="text-muted">Unresolved Tickets</h6><h2 class="mb-0">@Model.UnresolvedTickets</h2></div></div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">Ticket Operations</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Assign tickets to technicians</li>
+                    <li class="list-group-item">Set due dates and monitor completion</li>
+                    <li class="list-group-item">Review resolved and unresolved tickets</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">Top Performers</h5>
+                <p class="mb-1"><strong>Most tickets completed:</strong> @(!string.IsNullOrWhiteSpace(Model.TopTechnician) ? Model.TopTechnician : "No data") (@Model.TopTechnicianCount)</p>
+                <p class="mb-0"><strong>Lowest activity:</strong> @(!string.IsNullOrWhiteSpace(Model.LowestTechnician) ? Model.LowestTechnician : "No data") (@Model.LowestTechnicianCount)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">Recent Tickets</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                        <thead><tr><th>Title</th><th>Status</th><th>Assigned</th></tr></thead>
+                        <tbody>
+                            @foreach (var ticket in Model.Tickets.Take(8))
+                            {
+                                <tr>
+                                    <td>@ticket.title</td>
+                                    <td><span class="badge bg-secondary">@ticket.status</span></td>
+                                    <td>@(string.IsNullOrWhiteSpace(ticket.assigned_technician) ? "Unassigned" : ticket.assigned_technician)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card p-4">
+                <h5 class="fw-semibold mb-3">Assets and Staff</h5>
+                <p class="mb-2"><strong>Assets tracked:</strong> @Model.Assets.Count</p>
+                <p class="mb-2"><strong>Registered profiles:</strong> @Model.Profiles.Count</p>
+                <p class="mb-0"><a class="btn btn-outline-primary btn-sm" href="/Admin/Assets">Manage Assets</a></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@model ServiceHub_IT.Models.Profile
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container-fluid">
+    <div class="page-header">
+        <h1 class="h3 mb-2">My Profile</h1>
+        <p class="page-note mb-0">Manage the details associated with your account.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="content-panel">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="brand-mark" style="width:56px;height:56px;border-radius:16px;">@((Model.FullName ?? Model.Email).ToString()[0].ToString().ToUpperInvariant())</div>
+                    <div>
+                        <h4 class="mb-1">@(!string.IsNullOrWhiteSpace(Model.FullName) ? Model.FullName : Model.Email)</h4>
+                        <p class="text-muted mb-0">@Model.Role</p>
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+                    <li class="list-group-item"><strong>Role:</strong> @Model.Role</li>
+                    <li class="list-group-item"><strong>Member since:</strong> @(Model.CreatedAt == default ? "Not available" : Model.CreatedAt.ToString("MMM dd, yyyy"))</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="content-panel">
+                <h5 class="fw-semibold mb-3">Account Summary</h5>
+                <p class="text-muted">This workspace is currently using your authenticated identity from the service provider. Your profile details are displayed here for quick reference.</p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body">
+                                <h6 class="fw-semibold">Contact</h6>
+                                <p class="mb-0">@Model.Email</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 bg-light">
+                            <div class="card-body">
+                                <h6 class="fw-semibold">Access Level</h6>
+                                <p class="mb-0">@Model.Role</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

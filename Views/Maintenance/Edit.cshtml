@@ -1,0 +1,89 @@
+@model ServiceHub_IT.Models.MaintenanceFormViewModel
+@{
+    ViewData["Title"] = "Edit Maintenance";
+    Layout = "_Layout";
+}
+
+<div class="container-fluid px-0">
+    <div class="page-section mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="h4 fw-semibold mb-1">Edit Maintenance Record</h2>
+                <p class="text-muted mb-0">Update maintenance task details.</p>
+            </div>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+    <div class="card p-4">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row gy-3">
+                <div class="col-md-6">
+                    <label asp-for="AssetId" class="form-label"></label>
+                    <select asp-for="AssetId" class="form-select">
+                        <option value="">Select asset</option>
+                        @foreach (var asset in Model.Assets)
+                        {
+                            <option value="@asset.id" selected="@(asset.id == Model.AssetId.ToString() ? "selected" : null)">@asset.asset_name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="AssetId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="TechnicianId" class="form-label"></label>
+                    <select asp-for="TechnicianId" class="form-select">
+                        <option value="">Select technician</option>
+                        @foreach (var technician in Model.Technicians)
+                        {
+                            <option value="@technician.Id" selected="@(technician.Id == Model.TechnicianId ? "selected" : null)">@(!string.IsNullOrWhiteSpace(technician.FullName) ? technician.FullName : technician.Email)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TechnicianId" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Problem" class="form-label"></label>
+                    <textarea asp-for="Problem" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Problem" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Solution" class="form-label"></label>
+                    <textarea asp-for="Solution" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Solution" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaintenanceDate" class="form-label"></label>
+                    <input asp-for="MaintenanceDate" class="form-control" type="date" />
+                    <span asp-validation-for="MaintenanceDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="NextServiceDate" class="form-label"></label>
+                    <input asp-for="NextServiceDate" class="form-control" type="date" />
+                    <span asp-validation-for="NextServiceDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaintenanceCost" class="form-label"></label>
+                    <input asp-for="MaintenanceCost" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="MaintenanceCost" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Status" class="form-label"></label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="Open" selected="@(Model.Status == "Open" ? "selected" : null)">Open</option>
+                        <option value="In Progress" selected="@(Model.Status == "In Progress" ? "selected" : null)">In Progress</option>
+                        <option value="Due" selected="@(Model.Status == "Due" ? "selected" : null)">Due</option>
+                        <option value="Closed" selected="@(Model.Status == "Closed" ? "selected" : null)">Closed</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
