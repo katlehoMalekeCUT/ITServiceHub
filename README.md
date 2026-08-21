@@ -33,9 +33,6 @@ The required configuration section is:
 }
 ```
 
-If you need an environment-specific override, use `appsettings.Development.json`.
-
-> Note: Do not commit secrets or API keys to source control. Use a local configuration or secret store for production.
 
 ## Run locally
 
