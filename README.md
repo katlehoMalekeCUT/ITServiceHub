@@ -1,95 +1,95 @@
 # ServiceHub IT
 
-ServiceHub IT is an ASP.NET Core 8 MVC application for IT help desk, asset management, ticketing, and reporting.
+**ServiceHub IT** is an ASP.NET Core 8 MVC application designed to streamline IT help desk operations, including ticket management, asset management, maintenance, notifications, and reporting.
 
-## Overview
+## Features
 
-This application includes:
-- Authentication and authorization with cookie-based login
-- Ticket, asset, department, maintenance, notification, and knowledge base management
-- Dashboard views and reporting features
-- Supabase integration for backend data access
-- PDF processing and document import support
-- Machine learning ticket prediction model
-- Responsive Bootstrap 5 UI and standard MVC layout
+* 🔐 Authentication & role-based authorization
+* 🎫 IT ticket management and assignment
+* 💻 Asset management
+* 🛠️ Maintenance management
+* 🔔 Notifications
+* 📚 Knowledge base
+* 📊 Dashboard and reporting
+* 🤖 Machine learning ticket prediction
+* 📄 PDF and document processing
+* 🗄️ Supabase backend integration
+* 📱 Responsive Bootstrap 5 interface
 
-## Prerequisites
+## Screenshots
 
-- .NET 8 SDK installed
-- A Supabase project with REST API access
-- Optional: Visual Studio 2022/2023, Visual Studio Code, or another C# editor
+### Login
 
-## Configuration
+![Login](screenshots/login.png)
 
-The application reads Supabase settings from `appsettings.json`.
+### Dashboard
 
-The required configuration section is:
+![Dashboard](screenshots/dashboard.png)
 
-```json
-"Supabase": {
-  "Url": "https://<your-supabase-project>.supabase.co",
-  "ApiKey": "<your-supabase-api-key>",
-  "RedirectUrl": "https://localhost:5001/Auth/Login"
-}
+### Ticket Management
+
+![Tickets](screenshots/tickets.png)
+
+### Asset Management
+
+![Assets](screenshots/assets.png)
+
+### Reports
+
+![Reports](screenshots/reports.png)
+
+## Tech Stack
+
+* **Backend:** ASP.NET Core 8 MVC, C#
+* **Frontend:** Razor Views, Bootstrap 5, JavaScript
+* **Database:** Supabase
+* **Machine Learning:** Microsoft ML.NET
+* **Documents:** OpenXML, PDFPig
+
+## Project Structure
+
+```text
+Controllers/     MVC controllers
+Models/          Models and ViewModels
+Views/           Razor views
+Services/        Application and integration services
+Repositories/    Data access
+Interfaces/      Service and repository interfaces
+DTOs/            Data transfer objects
+Middleware/      Application middleware
+wwwroot/         CSS, JavaScript and images
 ```
 
+## Getting Started
 
-## Run locally
+### Requirements
 
-1. Open a terminal in the project folder:
+* .NET 8 SDK
+* Supabase project
 
-```powershell
-cd "c:\Users\manue\OneDrive\Desktop\ServiceHub IT\ServiceHub IT"
-```
+### Run
 
-2. Restore packages and run the app:
-
-```powershell
+```bash
 dotnet restore
 dotnet run
 ```
 
-3. Open the web browser at:
+Open the application using the HTTPS URL displayed by ASP.NET Core.
 
-```text
-https://localhost:5001
+### Configuration
+
+Configure your Supabase credentials in `appsettings.json`:
+
+```json
+"Supabase": {
+  "Url": "https://<your-project>.supabase.co",
+  "ApiKey": "<your-api-key>",
+  "RedirectUrl": "https://localhost:5001/Auth/Login"
+}
 ```
 
-The default application route is configured to `Auth/Login`.
+> **Security:** Never commit real API keys or sensitive credentials to GitHub.
 
-## Project structure
+## License
 
-- `Controllers/` - MVC controllers for pages and API actions
-- `Models/` - domain models, view models, and configuration classes
-- `Views/` - Razor views and shared layouts
-- `Services/` - application services, Supabase integration, PDF processing, reporting, and ML
-- `Repositories/` - data access and repository base classes
-- `Interfaces/` - service and repository interfaces
-- `DTOs/` - data transfer objects
-- `Utilities/` - shared constants and helper code
-- `Middleware/` - request logging and pipeline middleware
-- `wwwroot/` - static assets, CSS, JS, and images
-
-## Key packages
-
-- `Supabase` for Supabase REST API integration
-- `Microsoft.ML` for machine learning ticket prediction
-- `DocumentFormat.OpenXml` for working with Office documents
-- `UglyToad.PdfPig` for PDF parsing and processing
-
-## Notes
-
-- The app uses HTTPS and cookie authentication by default.
-- Authorization is enabled globally, so users must sign in to access protected routes.
-- If you change the local port or hostname, update `Supabase:RedirectUrl` accordingly.
-
-## Troubleshooting
-
-- If the app does not start, verify your .NET SDK installation with:
-
-```powershell
-dotnet --info
-```
-
-- If login or Supabase fails, confirm the `Supabase` section in `appsettings.json` is correct.
-- If you use a different development port, update the redirect URL in configuration.
+Developed as an IT service management application using ASP.NET Core 8 MVC.
