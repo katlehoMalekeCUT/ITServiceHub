@@ -16,27 +16,6 @@
 * 🗄️ Supabase backend integration
 * 📱 Responsive Bootstrap 5 interface
 
-## Screenshots
-
-### Login
-
-![Login](screenshots/login.png)
-
-### Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
-### Ticket Management
-
-![Tickets](screenshots/tickets.png)
-
-### Asset Management
-
-![Assets](screenshots/assets.png)
-
-### Reports
-
-![Reports](screenshots/reports.png)
 
 ## Tech Stack
 
